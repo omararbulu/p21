@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elecciones 2026 - Top 4 | Perú21</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --peru21-blue: #0066B3;
+    --peru21-yellow: #F2C200;
+    --dark: #1A1A2E;
+    --gray-100: #F4F5F7;
+    --gray-200: #E8EAED;
+    --gray-400: #9AA0A6;
+    --gray-600: #5F6368;
+    --white: #FFFFFF;
+    --accent-1: #E85D26;
+    --accent-2: #2E5DA8;
+    --accent-3: #D42027;
+    --accent-4: #C9A800;
+  }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+  }
+
+  .widget-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--white);
+    overflow: hidden;
+  }
+
+  .widget-header {
+    background: var(--peru21-blue);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .header-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .badge {
+    background: var(--peru21-yellow);
+    color: var(--dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+
+  .candidates-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .candidate-card {
+    padding: 22px 12px 18px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-right: 1px solid var(--gray-200);
+    animation: fadeUp 0.5s ease-out both;
+  }
+  .candidate-card:last-child { border-right: none; }
+  .candidate-card:nth-child(1) { animation-delay: 0.1s; }
+  .candidate-card:nth-child(2) { animation-delay: 0.2s; }
+  .candidate-card:nth-child(3) { animation-delay: 0.3s; }
+  .candidate-card:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .candidate-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .candidate-card:nth-child(1)::before { background: var(--accent-1); }
+  .candidate-card:nth-child(2)::before { background: var(--accent-2); }
+  .candidate-card:nth-child(3)::before { background: var(--accent-3); }
+  .candidate-card:nth-child(4)::before { background: var(--accent-4); }
+
+  .position {
+    position: absolute;
+    top: 10px; left: 10px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    color: var(--white);
+  }
+  .candidate-card:nth-child(1) .position { background: var(--accent-1); }
+  .candidate-card:nth-child(2) .position { background: var(--accent-2); }
+  .candidate-card:nth-child(3) .position { background: var(--accent-3); }
+  .candidate-card:nth-child(4) .position { background: var(--accent-4); color: var(--dark); }
+
+  .candidate-photo {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: 3px solid var(--white);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: var(--gray-200);
+  }
+  .candidate-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  .percentage {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 52px;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .percentage .symbol {
+    font-size: 24px;
+    font-weight: 700;
+    vertical-align: super;
+    letter-spacing: 0;
+  }
+  .candidate-card:nth-child(1) .percentage { color: var(--accent-1); }
+  .candidate-card:nth-child(2) .percentage { color: var(--accent-2); }
+  .candidate-card:nth-child(3) .percentage { color: var(--accent-3); }
+  .candidate-card:nth-child(4) .percentage { color: var(--accent-4); }
+
+  .progress-track {
+    width: 80%; max-width: 120px;
+    height: 5px;
+    background: var(--gray-200);
+    border-radius: 3px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    animation: fillBar 1s ease-out 0.6s both;
+  }
+  @keyframes fillBar { from { width: 0; } }
+
+  .candidate-card:nth-child(1) .progress-fill { width: 100%; background: var(--accent-1); }
+  .candidate-card:nth-child(2) .progress-fill { width: 91%; background: var(--accent-2); }
+  .candidate-card:nth-child(3) .progress-fill { width: 45%; background: var(--accent-3); }
+  .candidate-card:nth-child(4) .progress-fill { width: 45%; background: var(--accent-4); }
+
+  .candidate-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--dark);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top: 6px;
+    line-height: 1.2;
+  }
+  .candidate-party {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    color: var(--gray-600);
+    margin-top: 2px;
+  }
+
+  .widget-footer {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 2px solid var(--peru21-blue);
+  }
+  .widget-footer .source {
+    font-size: 10px;
+    color: var(--gray-400);
+  }
+  .widget-footer .cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--peru21-blue);
+    text-decoration: none;
+    border: 1.5px solid var(--peru21-blue);
+    padding: 5px 12px;
+    border-radius: 3px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .widget-footer .cta:hover {
+    background: var(--peru21-blue);
+    color: var(--white);
+  }
+
+  @media (max-width: 520px) {
+    .candidates-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .candidate-card {
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .candidate-card:nth-child(2) { border-right: none; }
+    .candidate-card:nth-child(3) { border-right: 1px solid var(--gray-200); }
+  }
+</style>
+</head>
+<body>
+
+<div class="widget-container">
+  <div class="widget-header">
+    <div class="header-title">Intención de voto presidencial</div>
+    <div class="badge">Elecciones 2026</div>
+  </div>
+
+  <div class="candidates-row">
+    <div class="candidate-card">
+      <div class="position">1</div>
+      <div class="candidate-photo">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect fill='%23E8EAED' width='80' height='80'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' fill='%239AA0A6' font-size='12' font-family='sans-serif'%3EKF%3C/text%3E%3C/svg%3E" alt="Keiko Fujimori">
+      </div>
+      <div class="percentage">11<span class="symbol">%</span></div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+      <div class="candidate-name">Keiko Fujimori</div>
+      <div class="candidate-party">Fuerza Popular</div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="position">2</div>
+      <div class="candidate-photo">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect fill='%23E8EAED' width='80' height='80'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' fill='%239AA0A6' font-size='12' font-family='sans-serif'%3ERLA%3C/text%3E%3C/svg%3E" alt="Rafael López Aliaga">
+      </div>
+      <div class="percentage">10<span class="symbol">%</span></div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+      <div class="candidate-name">Rafael López Aliaga</div>
+      <div class="candidate-party">Renovación Popular</div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="position">3</div>
+      <div class="candidate-photo">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect fill='%23E8EAED' width='80' height='80'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' fill='%239AA0A6' font-size='12' font-family='sans-serif'%3EALC%3C/text%3E%3C/svg%3E" alt="Alfonso López Chau">
+      </div>
+      <div class="percentage">5<span class="symbol">%</span></div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+      <div class="candidate-name">Alfonso López Chau</div>
+      <div class="candidate-party">Ahora Nación</div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="position">4</div>
+      <div class="candidate-photo">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect fill='%23E8EAED' width='80' height='80'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' fill='%239AA0A6' font-size='12' font-family='sans-serif'%3ECA%3C/text%3E%3C/svg%3E" alt="Carlos Álvarez">
+      </div>
+      <div class="percentage">5<span class="symbol">%</span></div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+      <div class="candidate-name">Carlos Álvarez</div>
+      <div class="candidate-party">País para Todos</div>
+    </div>
+  </div>
+
+  <div class="widget-footer">
+    <div class="source">Fuente: Encuestadora nacional · Margen de error: ±2.8%</div>
+    <a class="cta" href="#">Ver todos ›</a>
+  </div>
+</div>
+
+</body>
+</html>
